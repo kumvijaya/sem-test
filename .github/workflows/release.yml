@@ -1,0 +1,36 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Get Next Version
+        id: semver
+        uses: ietf-tools/semver-action@v1
+        with:
+          token: ${{ github.token }}
+          branch: main
+          majorList: [major], major
+          minorList: [minor], minor
+          patchList: [bug-fix], bugfix
+          
+      - name: check version
+        run: |
+          echo ${{ steps.semver.outputs.next }}
+
+#       - name: Create Release
+#         uses: ncipollo/release-action@v1.12.0
+#         with:
+#           allowUpdates: true
+#           draft: false
+#           makeLatest: true
+#           name: ${{ steps.semver.outputs.next }}
+#           body: Changelog Contents
+#           token: ${{ github.token }}
