@@ -17,9 +17,9 @@ jobs:
         with:
           token: ${{ github.token }}
           branch: main
-          majorList: [major], major
-          minorList: [minor], minor
-          patchList: [bug-fix], bugfix
+          majorList: "[major],major"
+          minorList: "[minor],minor"
+          patchList: "[bug-fix],bugfix"
           
       - name: check version
         run: |
